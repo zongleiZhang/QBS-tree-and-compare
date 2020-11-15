@@ -22,6 +22,7 @@ public class App {
     private static int ratio; //查询和更新的比例
     private static int times;
     private static int indexType = 0; //0:点索引， 1：矩形索引
+    private static Random random = new Random(0);
     private static final ReadPointThread READ_POINT_THREAD = new ReadPointThread();
     private static final TestPointIndexThread TEST_POINT_INDEX_THREAD = new TestPointIndexThread();
     private static final ReadSegmentThread READ_SEGMENT_THREAD = new ReadSegmentThread();
@@ -175,6 +176,7 @@ public class App {
                 Queue<TrackPoint> queue = new LinkedList<>();
                 int count = 0;
                 long startTime = 0;
+                int[] searchs = new int[ratio];
                 while (true) {
                     if (count <= tree_size) {
                         TrackPoint point = pointBuffer.remove();
@@ -187,8 +189,18 @@ public class App {
                         pointIndex.insert(point);
                         queue.add(point);
                         count++;
-                        if (count % ratio == 0)
-                            pointIndex.search(point);
+                        if (pointBuffer.size() < 100){
+                            for (int i = 0; i < ratio; i++) {
+                                searchs[i] = i;
+                            }
+                        }else {
+                            for (int i = 0; i < ratio; i++) {
+                                searchs[i] = random.nextInt(100);
+                            }
+                        }
+                        for (int index : searchs) {
+                            pointIndex.search(pointBuffer.get(index));
+                        }
                         if (count == tree_size+times)
                             break;
                         pointIndex.delete(queue.remove());
