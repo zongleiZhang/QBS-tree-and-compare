@@ -10,7 +10,10 @@ public class App {
     private static volatile boolean flag = true;
     private static final LinkedList<TrackPoint> pointBuffer = new LinkedList<>();
     private static final LinkedList<Segment> segmentBuffer = new LinkedList<>();
-    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
+//    北京出租车
+//    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
+    //成都滴滴
+    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(8626.0,8872.0));
     private static String inputDir;
     private static String outputFile;
     private static String configFile;
