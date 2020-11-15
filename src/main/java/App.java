@@ -8,8 +8,8 @@ import java.util.*;
 public class App {
 
     private static volatile boolean flag = true;
-    private static final Queue<TrackPoint> pointBuffer = new LinkedList<>();
-    private static final Queue<Segment> segmentBuffer = new LinkedList<>();
+    private static final LinkedList<TrackPoint> pointBuffer = new LinkedList<>();
+    private static final LinkedList<Segment> segmentBuffer = new LinkedList<>();
     private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
     private static String inputDir;
     private static String outputFile;
