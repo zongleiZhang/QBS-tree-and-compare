@@ -5,6 +5,7 @@ import geometry.Rectangle;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TextSize {
@@ -13,6 +14,7 @@ public class TextSize {
 
     public static void main(String[] args) throws IOException{
 //        new Rectangle(new Point(105.0,30.0), new Point(125.0, 45.0))
+//        File rf = new File("D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\merge.txt");
         File rf = new File("D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\merge.txt");
         File wf = new File("D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\convert");
         if (!wf.exists())

@@ -35,7 +35,7 @@ public class QBSTree<T extends ElemRoot> implements Serializable {
 		this.balanceFactor = balanceFactor;
 		this.upBound = 5*lowBound;
 		this.precision = precision;
-		cache = new ArrayList<>();
+		cache = new ArrayList<>(0);
 		this.cacheSize = cacheSize;
 		root = new QBSDataNode<>(0, null, -1, centerRegion, null, new ArrayList<>(), 0, this, new ArrayList<>());
 	}
