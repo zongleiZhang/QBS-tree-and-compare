@@ -8,12 +8,12 @@ import java.util.*;
 public class App {
 
     private static volatile boolean flag = true;
-    private static final Queue<TrackPoint> pointBuffer = new LinkedList<>();
-    private static final Queue<Segment> segmentBuffer = new LinkedList<>();
-    //北京出租车
-    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
+    private static final LinkedList<TrackPoint> pointBuffer = new LinkedList<>();
+    private static final LinkedList<Segment> segmentBuffer = new LinkedList<>();
+//    北京出租车
+//    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
     //成都滴滴
-//    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(8626.0,8872.0));
+    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(8626.0,8872.0));
     private static String inputDir;
     private static String outputFile;
     private static String configFile;
@@ -23,8 +23,9 @@ public class App {
     private static int tree_size;  //树的规模
     private static double radius; //查询矩形的大小
     private static int ratio; //查询和更新的比例
-    private static int times;
+    private static int times = 20000;  //20000:点索引， 6000：矩形索引
     private static int indexType = 0; //0:点索引， 1：矩形索引
+    private static Random random = new Random(0);
     private static final ReadPointThread READ_POINT_THREAD = new ReadPointThread();
     private static final TestPointIndexThread TEST_POINT_INDEX_THREAD = new TestPointIndexThread();
     private static final ReadSegmentThread READ_SEGMENT_THREAD = new ReadSegmentThread();
@@ -98,6 +99,7 @@ public class App {
                 Queue<Segment> queue = new LinkedList<>();
                 int count = 0;
                 long startTime = 0;
+                int[] searchs = new int[ratio];
                 while (true) {
                     if (count <= tree_size) {
                         Segment segment = segmentBuffer.remove();
@@ -110,8 +112,18 @@ public class App {
                         rectIndex.insert(segment);
                         queue.add(segment);
                         count++;
-                        if (count % ratio == 0)
-                            rectIndex.search(segment.rect.getCenter());
+                        if (segmentBuffer.size() < 100){
+                            for (int i = 0; i < ratio; i++) {
+                                searchs[i] = i;
+                            }
+                        }else {
+                            for (int i = 0; i < ratio; i++) {
+                                searchs[i] = random.nextInt(100);
+                            }
+                        }
+                        for (int index : searchs) {
+                            rectIndex.search(segmentBuffer.get(index).rect.getCenter());
+                        }
                         if (count == tree_size+times)
                             break;
 
@@ -178,6 +190,7 @@ public class App {
                 Queue<TrackPoint> queue = new LinkedList<>();
                 int count = 0;
                 long startTime = 0;
+                int[] searchs = new int[ratio];
                 while (true) {
                     if (count <= tree_size) {
                         TrackPoint point = pointBuffer.remove();
@@ -190,8 +203,18 @@ public class App {
                         pointIndex.insert(point);
                         queue.add(point);
                         count++;
-                        if (count % ratio == 0)
-                            pointIndex.search(point);
+                        if (pointBuffer.size() < 100){
+                            for (int i = 0; i < ratio; i++) {
+                                searchs[i] = i;
+                            }
+                        }else {
+                            for (int i = 0; i < ratio; i++) {
+                                searchs[i] = random.nextInt(100);
+                            }
+                        }
+                        for (int index : searchs) {
+                            pointIndex.search(pointBuffer.get(index));
+                        }
                         if (count == tree_size+times)
                             break;
                         pointIndex.delete(queue.remove());
@@ -224,7 +247,11 @@ public class App {
                 configFile = "D:\\研究生资料\\论文\\my paper\\MyPaper\\分布式空间索引\\投递期刊\\Data\\local\\config.txt";
             }
             if (os.startsWith("Linux")){
-                inputDir = "/home/chenliang/data/didi/Bei_Jing";
+                //北京出租车
+//                inputDir = "/home/chenliang/data/didi/Bei_Jing";
+
+                //成都滴滴
+                inputDir = "/home/chenliang/data/didi/Cheng_Du/Sorted_2D";
                 outputFile = "/home/chenliang/data/zzl/SingleNodeTree.txt";
                 configFile = "/home/chenliang/data/zzl/config.txt";
             }
@@ -240,7 +267,6 @@ public class App {
                         tree_size = Integer.parseInt(configs[1]);
                         radius = Double.parseDouble(configs[2]);
                         ratio = Integer.parseInt(configs[3]);
-                        times = 20000;
                         if (indexType == 0) {
                             switch (tree_type) {
                                 case "PHTree":
