@@ -23,8 +23,8 @@ public class App {
     private static int tree_size;  //树的规模
     private static double radius; //查询矩形的大小
     private static int ratio; //查询和更新的比例
-    private static int times = 20000;  //20000:点索引， 6000：矩形索引
-    private static int indexType = 0; //0:点索引， 1：矩形索引
+    private static int times = 6000;  //20000:点索引， 6000：矩形索引
+    private static int indexType = 1; //0:点索引， 1：矩形索引
     private static Random random = new Random(0);
     private static final ReadPointThread READ_POINT_THREAD = new ReadPointThread();
     private static final TestPointIndexThread TEST_POINT_INDEX_THREAD = new TestPointIndexThread();
