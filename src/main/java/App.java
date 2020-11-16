@@ -11,9 +11,9 @@ public class App {
     private static final LinkedList<TrackPoint> pointBuffer = new LinkedList<>();
     private static final LinkedList<Segment> segmentBuffer = new LinkedList<>();
 //    北京出租车
-//    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
+    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(1929725.6050, 1828070.4620));
     //成都滴滴
-    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(8626.0,8872.0));
+//    private static final Rectangle globalRegion = new Rectangle(new Point(0.0,0.0), new Point(8626.0,8872.0));
     private static String inputDir;
     private static String outputFile;
     private static String configFile;
@@ -23,7 +23,7 @@ public class App {
     private static int tree_size;  //树的规模
     private static double radius; //查询矩形的大小
     private static int ratio; //查询和更新的比例
-    private static int times = 4000;  //20000:点索引， 4000：矩形索引
+    private static int times = 3000;  //20000:点索引， 3000：矩形索引
     private static int indexType = 1; //0:点索引， 1：矩形索引
     private static Random random = new Random(0);
     private static final ReadPointThread READ_POINT_THREAD = new ReadPointThread();
@@ -256,10 +256,10 @@ public class App {
             }
             if (os.startsWith("Linux")){
                 //北京出租车
-//                inputDir = "/home/chenliang/data/didi/Bei_Jing";
+                inputDir = "/home/chenliang/data/didi/Bei_Jing";
 
                 //成都滴滴
-                inputDir = "/home/chenliang/data/didi/Cheng_Du/Sorted_2D";
+//                inputDir = "/home/chenliang/data/didi/Cheng_Du/Sorted_2D";
                 outputFile = "/home/chenliang/data/zzl/SingleNodeTree.txt";
                 configFile = "/home/chenliang/data/zzl/config.txt";
             }
