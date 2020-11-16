@@ -242,7 +242,8 @@ public class App {
         try {
             String os = System.getProperty("os.name");
             if (os.startsWith("Windows")){
-                inputDir = "D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\convert";
+//                inputDir = "D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\convert";
+                inputDir = "D:\\研究生资料\\论文\\track_data\\成都滴滴\\Sorted_2D\\";
                 outputFile = "D:\\研究生资料\\论文\\my paper\\MyPaper\\分布式空间索引\\投递期刊\\Data\\local\\SingleNodeTree.txt";
                 configFile = "D:\\研究生资料\\论文\\my paper\\MyPaper\\分布式空间索引\\投递期刊\\Data\\local\\config.txt";
             }
