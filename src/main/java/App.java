@@ -55,8 +55,8 @@ public class App {
                 Map<Integer, TrackPoint> map = new HashMap<>();
                 String line;
                 while (flag) {
-                    if (pointBuffer.size() < 400000) {
-                        for (int i = 0; i < 40000; i++) {
+                    if (pointBuffer.size() < 200000) {
+                        for (int i = 0; i < 20000; i++) {
                             if ((line = br.readLine()) != null) {
                                 String[] split = line.split("\t");
                                 TrackPoint curPoint = new TrackPoint(new double[]{Double.parseDouble(split[2]), Double.parseDouble(split[3])},
