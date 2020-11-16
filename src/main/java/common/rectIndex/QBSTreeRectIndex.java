@@ -13,7 +13,7 @@ public class QBSTreeRectIndex implements RectIndex{
     double radius;
 
     public QBSTreeRectIndex(Rectangle globalRegion, double radius){
-        tree = new QBSTree<>(4, 1,17, globalRegion, 0);
+        tree = new QBSTree<>(4, 1,11, globalRegion, 0);
         this.radius = radius;
     }
 
