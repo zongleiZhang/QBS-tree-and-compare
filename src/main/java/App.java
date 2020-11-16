@@ -54,9 +54,10 @@ public class App {
                 BufferedReader br = new BufferedReader(new FileReader(fs.next()));
                 Map<Integer, TrackPoint> map = new HashMap<>();
                 String line;
+                int count = 0;
                 while (flag) {
                     if (pointBuffer.size() < 200000) {
-                        for (int i = 0; i < 20000; i++) {
+                        for (int i = 0; i < 10000; i++) {
                             if ((line = br.readLine()) != null) {
                                 String[] split = line.split("\t");
                                 TrackPoint curPoint = new TrackPoint(new double[]{Double.parseDouble(split[2]), Double.parseDouble(split[3])},
@@ -71,6 +72,11 @@ public class App {
                                     }else {
                                         segmentBuffer.add(new Segment(prePoint, curPoint));
                                     }
+                                }
+                                count++;
+                                if (count == 100000){
+                                    count = 0;
+                                    map.entrySet().removeIf(entry -> entry.getValue().timestamp - curPoint.timestamp > 1000*60*3);
                                 }
                             } else {
                                 br.close();
