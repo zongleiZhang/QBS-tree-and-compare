@@ -86,16 +86,15 @@ public class QBSDataNode<T extends ElemRoot> extends QBSNode<T> {
 		if(this.elemNum <= this.tree.upBound) { //没有上溢
 			return true;
 		}else {//上溢
-			QBSNode<T> UBNode;
+			QBSDirNode<T> UBNode;
 			depth = 1;
 			convertUpperLayerPD();
 			UBNode = getMinReassignNode(false,position);
 			QBSNode<T> newNode;
 			if(UBNode == null) { //没有失衡
 				newNode = split();
-				UBNode = this;
 			}else {  //失衡
-				newNode = ((QBSDirNode<T>)UBNode).redistribution();
+				newNode = UBNode.redistribution();
 			}
 			if(newNode.isRoot()) {
 				tree.setRoot(newNode);
