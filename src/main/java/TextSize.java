@@ -1,37 +1,40 @@
+import com.ada.model.result.QueryResult;
 import common.ClassMct;
 import geometry.Point;
 import geometry.Rectangle;
+import geometry.Segment;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class TextSize {
 
     private final static DecimalFormat df = new DecimalFormat("#.0000");
 
-    public static void main(String[] args) throws IOException{
-//        new Rectangle(new Point(105.0,30.0), new Point(125.0, 45.0))
-//        File rf = new File("D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\merge.txt");
-        File rf = new File("D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\merge.txt");
-        File wf = new File("D:\\研究生资料\\论文\\track_data\\北京出租车\\merge\\convert");
-        if (!wf.exists())
-            wf.createNewFile();
-        BufferedReader br = new BufferedReader(new FileReader(rf));
-        BufferedWriter bw = new BufferedWriter(new FileWriter(wf));
-        String str;
-        while ((str = br.readLine()) != null){
-            PP p = new PP(str);
-            if (p.f) {
-                bw.write(p.toString());
-                bw.newLine();
-            }
-        }
-        br.close();
-        bw.close();
+    public static void main(String[] args) throws Exception{
+        Map<Long, List<Segment>> singleNodeMap = new HashMap<>();
+        readFile( "D:\\研究生资料\\论文\\my paper\\MyPaper\\分布式空间索引\\投递期刊\\Data\\debug\\SSI_PH\\output_0", singleNodeMap);
+
     }
+
+    private static void readFile(String path, Map<Long, List<Segment>> map) throws Exception {
+        File f = new File(path);
+        FileInputStream fis = new FileInputStream(f);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Object o;
+        while ((o = ois.readObject()) != null){
+            QueryResult result = (QueryResult) o;
+            map.put(result.queryID, result.list);
+        }
+        ois.close();
+        fis.close();
+    }
+
+
 
     public static class PP {
         private static final Rectangle globalRegion = new Rectangle(new Point(0.0, 0.0), new Point(1929725.6050, 1828070.4620));

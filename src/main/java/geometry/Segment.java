@@ -12,6 +12,7 @@ import java.util.*;
 public class Segment extends RectElem implements Serializable, RectItem {
     public TrackPoint p1;
     public TrackPoint p2;
+    public int hashCode;
 
     public Segment(){}
 
@@ -24,6 +25,7 @@ public class Segment extends RectElem implements Serializable, RectItem {
             this.p1 = p1;
             this.p2 = p2;
         }
+        hashCode = Objects.hash(p1, p2);
     }
 
     public int getTID(){
